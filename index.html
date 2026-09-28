@@ -1,0 +1,1546 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran IPA Kelas 8 - Zat Aditif</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        },
+                        funYellow: '#fbbf24',
+                        funPurple: '#8b5cf6',
+                        funPink: '#ec4899',
+                        funBlue: '#3b82f6',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome CDN for visual icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.9);
+            border-color: rgba(51, 65, 85, 0.8);
+        }
+        .bounce-hover:hover {
+            transform: translateY(-4px);
+        }
+        .btn-glow {
+            box-shadow: 0 4px 14px 0 rgba(34, 197, 94, 0.39);
+        }
+        .btn-glow:hover {
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.55);
+        }
+        .tab-active {
+            border-bottom: 3px solid #16a34a;
+            color: #16a34a;
+            font-weight: 700;
+        }
+        .dark .tab-active {
+            border-bottom-color: #4ade80;
+            color: #4ade80;
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen font-sans transition-colors duration-200 flex flex-col justify-between">
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center justify-between">
+                <!-- Logo & Title -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('beranda')">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-green-500 to-emerald-400 flex items-center justify-center text-white shadow-md font-bold text-xl">
+                        🧪
+                    </div>
+                    <div>
+                        <h1 class="font-black text-base sm:text-lg leading-tight tracking-tight text-slate-900 dark:text-white">IPA KELAS 8</h1>
+                        <p class="text-xs text-emerald-600 dark:text-emerald-400 font-semibold">Zat Aditif Makanan</p>
+                    </div>
+                </div>
+
+                <!-- Top Right Controls -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <!-- Progress Summary Badge -->
+                    <div class="hidden sm:flex items-center bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 rounded-full px-3 py-1">
+                        <i class="fa-solid fa-star text-amber-500 mr-2 text-xs"></i>
+                        <span class="text-xs font-bold text-emerald-800 dark:text-emerald-300">Progress: <span id="headerProgress">0%</span></span>
+                    </div>
+
+                    <!-- Sound Toggle -->
+                    <button id="soundBtn" onclick="toggleSound()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition" title="Suara / SFX">
+                        <i id="soundIcon" class="fa-solid fa-volume-high text-base"></i>
+                    </button>
+
+                    <!-- Dark Mode Toggle -->
+                    <button onclick="toggleDarkMode()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition" title="Mode Gelap/Terang">
+                        <i class="fa-solid fa-moon dark:hidden text-base"></i>
+                        <i class="fa-solid fa-sun hidden dark:block text-base text-amber-400"></i>
+                    </button>
+
+                    <!-- Settings (Guru) -->
+                    <button onclick="openSettingsModal()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600 transition" title="Pengaturan Guru">
+                        <i class="fa-solid fa-gear text-base"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Global Progress Bar -->
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div id="globalProgressBar" class="bg-gradient-to-r from-green-400 to-emerald-600 h-full w-0 transition-all duration-500"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full">
+
+        <!-- ================= VIEW 1: BERANDA ================= -->
+        <section id="view-beranda" class="view-section space-y-8">
+            <div class="bg-gradient-to-r from-emerald-500 via-teal-600 to-cyan-600 rounded-3xl p-6 sm:p-10 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-15 text-9xl select-none pointer-events-none">🍔</div>
+                <div class="relative z-10 max-w-2xl">
+                    <span class="inline-block bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-3">
+                        Kurikulum Merdeka • Kelas 8 SMP
+                    </span>
+                    <h1 class="text-3xl sm:text-5xl font-extrabold leading-tight mb-3">
+                        Mengenal Zat Aditif Dalam Kehidupan
+                    </h1>
+                    <p class="text-emerald-50 text-sm sm:text-base mb-6 leading-relaxed">
+                        Selamat datang di media pembelajaran interaktif IPA! Mari bersama-sama menjadi detektif pangan modern yang bijak dan teliti dalam memilih makanan serta minuman sehari-hari.
+                    </p>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <button onclick="navigateTo('tujuan')" class="px-6 py-3 bg-amber-400 hover:bg-amber-300 text-slate-900 font-bold rounded-2xl shadow-lg transition duration-200 transform hover:scale-105 flex items-center gap-2">
+                            <i class="fa-solid fa-rocket"></i> Mulai Belajar
+                        </button>
+                        <button onclick="openDocs('material')" class="px-5 py-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-semibold rounded-2xl border border-white/30 transition flex items-center gap-2">
+                            <i class="fa-solid fa-file-lines"></i> Baca Rangkuman Docs
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guru Info Box -->
+            <div class="glass-card rounded-2xl p-4 sm:p-5 flex items-center justify-between shadow-sm">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600 dark:text-emerald-300 text-xl font-bold">
+                        👨‍🏫
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Pengampu Mata Pelajaran IPA</p>
+                        <h3 id="displayTeacherName" class="font-bold text-slate-800 dark:text-slate-100 text-base sm:text-lg">Guru IPA SMP</h3>
+                    </div>
+                </div>
+                <button onclick="openSettingsModal()" class="text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg transition font-medium">
+                    <i class="fa-solid fa-pen mr-1"></i> Ubah Info
+                </button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div>
+                <h2 class="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-compass text-emerald-500"></i> Menu Utama Pembelajaran
+                </h2>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div onclick="navigateTo('materi')" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-emerald-500 hover:shadow-md transition text-center group">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">📖</div>
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-100">Materi</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Konsep & Jenis</p>
+                    </div>
+
+                    <div onclick="navigateTo('aktivitas')" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-emerald-500 hover:shadow-md transition text-center group">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">🔍</div>
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-100">Aktivitas</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Kenali Label</p>
+                    </div>
+
+                    <div onclick="navigateTo('permainan')" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-emerald-500 hover:shadow-md transition text-center group">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">🕵️‍♂️</div>
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-100">Game</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Detektif Zat</p>
+                    </div>
+
+                    <div onclick="navigateTo('kuis')" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-emerald-500 hover:shadow-md transition text-center group">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">✏️</div>
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-100">Kuis</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">15 Soal Latihan</p>
+                    </div>
+
+                    <div onclick="navigateTo('evaluasi')" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-emerald-500 hover:shadow-md transition text-center group">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">📋</div>
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-100">Evaluasi</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">20 Soal Ujian</p>
+                    </div>
+
+                    <div onclick="navigateTo('hasil')" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-emerald-500 hover:shadow-md transition text-center group">
+                        <div class="w-14 h-14 mx-auto rounded-2xl bg-teal-100 dark:bg-teal-900/40 text-teal-600 dark:text-teal-400 flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition">📊</div>
+                        <h3 class="font-bold text-sm text-slate-800 dark:text-slate-100">Hasil Belajar</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Rekap Skor</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Direct Access Section -->
+            <div class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-2xl shrink-0">📚</div>
+                    <div>
+                        <h3 class="font-bold text-indigo-950 dark:text-indigo-200 text-base">Lembar Kerja & Modul Belajar Google Docs</h3>
+                        <p class="text-xs text-indigo-700 dark:text-indigo-300">Akses ringkasan materi terlengkap dan LKPD resmi langsung via Google Docs Guru.</p>
+                    </div>
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <button onclick="openDocs('material')" class="flex-1 sm:flex-none px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-word"></i> Modul Docs
+                    </button>
+                    <button onclick="openDocs('lkpd')" class="flex-1 sm:flex-none px-4 py-2.5 bg-white dark:bg-slate-800 hover:bg-slate-100 text-indigo-600 dark:text-indigo-300 border border-indigo-300 dark:border-indigo-700 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-clipboard-check"></i> LKPD Docs
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 2: TUJUAN PEMBELAJARAN ================= -->
+        <section id="view-tujuan" class="view-section hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Capaian Pembelajaran</span>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Tujuan Pembelajaran</h2>
+                </div>
+                <button onclick="navigateTo('materi')" class="px-4 py-2 bg-emerald-600 text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition">
+                    Lanjut Ke Materi <i class="fa-solid fa-arrow-right ml-1"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="glass-card p-5 rounded-2xl border-l-4 border-l-blue-500">
+                    <div class="text-blue-500 font-bold text-xl mb-2">01</div>
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base mb-1">Pengertian Zat Aditif</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Peserta didik mampu menjelaskan pengertian zat aditif dalam makanan dan minuman secara ilmiah dan komunikatif.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl border-l-4 border-l-amber-500">
+                    <div class="text-amber-500 font-bold text-xl mb-2">02</div>
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base mb-1">Mengidentifikasi Jenis</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Peserta didik mampu mengelompokkan jenis-jenis zat aditif berdasarkan fungsi utamanya (Pewarna, Pemanis, Pengawet, Penyedap).
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl border-l-4 border-l-emerald-500">
+                    <div class="text-emerald-500 font-bold text-xl mb-2">03</div>
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base mb-1">Alami vs Sintetis</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Peserta didik mampu membedakan karakteristik, kelebihan, dan keterbatasan zat aditif alami dengan sintetis.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl border-l-4 border-l-purple-500">
+                    <div class="text-purple-500 font-bold text-xl mb-2">04</div>
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base mb-1">Contoh Sehari-hari</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Peserta didik mampu menyebutkan contoh nyata zat aditif alami dan sintetis yang ditemui pada produk pangan harian.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl border-l-4 border-l-pink-500">
+                    <div class="text-pink-500 font-bold text-xl mb-2">05</div>
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base mb-1">Analisis Label Produk</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Peserta didik mampu mengidentifikasi komposisi zat aditif pada kemasan makanan dan minuman komersial.
+                    </p>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl border-l-4 border-l-rose-500">
+                    <div class="text-rose-500 font-bold text-xl mb-2">06</div>
+                    <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base mb-1">Sikap Bijak Consumable</h3>
+                    <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Menunjukkan sikap kritis dan bijak dalam memilih produk makanan yang aman dan memenuhi batas regulasi pangan (ADI).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 3: MATERI INTERAKTIF ================= -->
+        <section id="view-materi" class="view-section hidden space-y-6">
+            <div>
+                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Eksplorasi Konsep</span>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Materi Pembelajaran Zat Aditif</h2>
+            </div>
+
+            <!-- Material Tabs -->
+            <div class="flex overflow-x-auto gap-2 border-b border-slate-200 dark:border-slate-700 pb-2 no-scrollbar">
+                <button onclick="switchMaterialTab('pengertian')" id="mtab-pengertian" class="px-4 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition tab-active">💡 Pengertian</button>
+                <button onclick="switchMaterialTab('pewarna')" id="mtab-pewarna" class="px-4 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500">🎨 Pewarna</button>
+                <button onclick="switchMaterialTab('pemanis')" id="mtab-pemanis" class="px-4 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500">🍯 Pemanis</button>
+                <button onclick="switchMaterialTab('pengawet')" id="mtab-pengawet" class="px-4 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500">🧊 Pengawet</button>
+                <button onclick="switchMaterialTab('penyedap')" id="mtab-penyedap" class="px-4 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500">🍜 Penyedap</button>
+                <button onclick="switchMaterialTab('contoh')" id="mtab-contoh" class="px-4 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500">🛒 Aplikasi Harian</button>
+            </div>
+
+            <!-- Tab Contents Wrapper -->
+            <div id="materialContentArea" class="glass-card rounded-2xl p-6 space-y-6">
+                <!-- Content will be injected dynamically via JS -->
+            </div>
+
+            <div class="flex justify-between items-center pt-2">
+                <p id="materialProgressStatus" class="text-xs text-slate-500 font-medium">Modul dibaca: <span id="readCount">0</span> dari 6</p>
+                <button id="btnPaham" onclick="markMaterialUnderstood()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-xs transition flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-check-circle"></i> Saya Sudah Paham Bagian Ini!
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 4: AKTIVITAS KENALI ZAT ADITIF ================= -->
+        <section id="view-aktivitas" class="view-section hidden space-y-6">
+            <div>
+                <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Praktikum Interaktif</span>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Aktivitas: Kenali Label Produk Pangan</h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Pilihlah jenis zat aditif yang terkandung dalam produk makanan di bawah ini sesuai komposisinya!</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="activityContainer">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- ================= VIEW 5: PERMAINAN EDUKATIF DETEKTIF ================= -->
+        <section id="view-permainan" class="view-section hidden space-y-6">
+            <div class="bg-gradient-to-r from-purple-600 to-indigo-700 rounded-3xl p-6 text-white shadow-lg relative overflow-hidden">
+                <div class="flex items-center justify-between relative z-10">
+                    <div>
+                        <span class="bg-purple-800/80 text-purple-200 px-3 py-1 rounded-full text-xs font-bold">GAME INTERAKTIF</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold mt-1">Detektif Zat Aditif 🕵️‍♂️</h2>
+                        <p class="text-purple-100 text-xs sm:text-sm mt-1">Selesaikan kasus investigasi makanan komersial dan kumpulkan poin kepangkatan!</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-xs text-purple-200">Skor Detektif</div>
+                        <div id="gameScoreDisplay" class="text-3xl font-black text-amber-300">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Board -->
+            <div id="gameBoard" class="glass-card rounded-2xl p-6 space-y-6">
+                <!-- Injected via JS -->
+            </div>
+        </section>
+
+        <!-- ================= VIEW 6: KUIS INTERAKTIF ================= -->
+        <section id="view-kuis" class="view-section hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Uji Pemahaman</span>
+                    <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Kuis Formatif (15 Soal)</h2>
+                </div>
+                <div class="text-xs font-bold bg-slate-200 dark:bg-slate-700 px-3 py-1.5 rounded-xl">
+                    Soal <span id="quizCurrentIndex">1</span> dari <span id="quizTotalIndex">15</span>
+                </div>
+            </div>
+
+            <!-- Quiz Card -->
+            <div class="glass-card rounded-2xl p-6 space-y-6 relative">
+                <div id="quizQuestionBox" class="space-y-4">
+                    <!-- Dynamic Quiz Content -->
+                </div>
+
+                <div id="quizExplanationBox" class="hidden p-4 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-xs space-y-2">
+                    <span id="quizBadgeResult" class="px-2 py-0.5 rounded font-bold text-white"></span>
+                    <p id="quizExplanationText" class="text-slate-700 dark:text-slate-200 font-medium leading-relaxed"></p>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <button id="quizPrevBtn" onclick="navigateQuiz(-1)" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold disabled:opacity-40">
+                        <i class="fa-solid fa-arrow-left mr-1"></i> Sebelum
+                    </button>
+                    <button id="quizNextBtn" onclick="navigateQuiz(1)" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md">
+                        Lanjut <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 7: EVALUASI AKHIR ================= -->
+        <section id="view-evaluasi" class="view-section hidden space-y-6">
+            <div>
+                <span class="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Ujian Summative</span>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Evaluasi Pembelajaran (20 Soal)</h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Isi identitas diri Anda dengan benar sebelum memulai ujian summative.</p>
+            </div>
+
+            <!-- Student Form Modal / Card -->
+            <div id="evalIdentityBox" class="glass-card rounded-2xl p-6 space-y-4 max-w-lg mx-auto">
+                <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base border-b pb-2">Data Peserta Didik</h3>
+                
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Nama Lengkap</label>
+                    <input type="text" id="studentName" placeholder="Contoh: Ahmad Raihan" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Kelas</label>
+                        <select id="studentClass" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+                            <option value="8-A">8-A</option>
+                            <option value="8-B">8-B</option>
+                            <option value="8-C">8-C</option>
+                            <option value="8-D">8-D</option>
+                            <option value="8-E">8-E</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Nomor Absen</label>
+                        <input type="number" id="studentAbsen" min="1" max="50" placeholder="15" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-xs focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                </div>
+
+                <button onclick="startExam()" class="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold text-sm rounded-xl transition shadow-lg flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-file-signature"></i> Mulai Pengerjaan Evaluasi
+                </button>
+            </div>
+
+            <!-- Exam Screen (Hidden initially) -->
+            <div id="evalExamScreen" class="hidden glass-card rounded-2xl p-6 space-y-6">
+                <div class="flex items-center justify-between border-b pb-4 dark:border-slate-700">
+                    <div>
+                        <span id="evalStudentInfoBadge" class="text-xs font-bold text-emerald-600 dark:text-emerald-400"></span>
+                        <h3 class="font-extrabold text-slate-800 dark:text-slate-100 text-lg">Ujian Summative Zat Aditif</h3>
+                    </div>
+                    <div class="bg-rose-100 dark:bg-rose-900/50 border border-rose-300 text-rose-700 dark:text-rose-300 px-3 py-1.5 rounded-xl font-mono text-xs font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-clock"></i> <span id="examTimerDisplay">20:00</span>
+                    </div>
+                </div>
+
+                <div id="evalQuestionContainer" class="space-y-4">
+                    <!-- Injected via JS -->
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t dark:border-slate-700">
+                    <button id="evalPrevBtn" onclick="navigateEval(-1)" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-xs font-bold rounded-xl disabled:opacity-40">
+                        <i class="fa-solid fa-arrow-left"></i> Soal Sebelum
+                    </button>
+                    <span class="text-xs text-slate-500 font-bold">Soal <span id="evalCurrentIndex">1</span> / 20</span>
+                    <button id="evalNextBtn" onclick="navigateEval(1)" class="px-5 py-2 bg-emerald-600 text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition">
+                        Soal Berikut <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="text-center pt-4">
+                    <button onclick="finishExam()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl shadow-lg transition">
+                        <i class="fa-solid fa-paper-plane mr-1"></i> Selesaikan & Kirim Evaluasi
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 8: HASIL BELAJAR ================= -->
+        <section id="view-hasil" class="view-section hidden space-y-6">
+            <div>
+                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider">Rekapitulasi</span>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Hasil Belajar & Laporan Nilai</h2>
+            </div>
+
+            <!-- Score Summary Card -->
+            <div class="glass-card rounded-3xl p-6 sm:p-8 space-y-6 text-center max-w-2xl mx-auto border-t-8 border-t-emerald-500">
+                <div class="w-20 h-20 mx-auto rounded-full bg-emerald-100 dark:bg-emerald-950 flex items-center justify-center text-4xl shadow-inner">
+                    🏆
+                </div>
+
+                <div>
+                    <h3 id="hasilNamaSiswa" class="text-xl font-black text-slate-800 dark:text-slate-100">Belum Ada Data Evaluasi</h3>
+                    <p id="hasilKelasAbsen" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Silakan selesaikan Ujian Evaluasi terlebih dahulu.</p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                    <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+                        <p class="text-[10px] uppercase font-bold text-slate-400">Nilai Akhir</p>
+                        <p id="hasilNilai" class="text-2xl font-black text-emerald-600 dark:text-emerald-400">0</p>
+                    </div>
+                    <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+                        <p class="text-[10px] uppercase font-bold text-slate-400">Benar / Salah</p>
+                        <p id="hasilBenarSalah" class="text-base font-extrabold text-slate-700 dark:text-slate-200">0 / 0</p>
+                    </div>
+                    <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+                        <p class="text-[10px] uppercase font-bold text-slate-400">Waktu</p>
+                        <p id="hasilWaktu" class="text-base font-extrabold text-slate-700 dark:text-slate-200">0 mnt</p>
+                    </div>
+                    <div class="p-3 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+                        <p class="text-[10px] uppercase font-bold text-slate-400">Kategori</p>
+                        <p id="hasilKategori" class="text-xs font-black text-amber-500 mt-1">-</p>
+                    </div>
+                </div>
+
+                <!-- Google Sheets Send Status Indicator -->
+                <div id="sheetsStatusBox" class="hidden p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs font-medium text-emerald-800 dark:text-emerald-300 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-check text-base"></i> <span id="sheetsStatusMsg">Data berhasil terintegrasi ke Google Sheets Guru!</span>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+                    <button onclick="window.print()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold transition flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> Cetak / Simpan PDF
+                    </button>
+                    <button onclick="navigateTo('refleksi')" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-2">
+                        Lanjut Refleksi <i class="fa-solid fa-comment-dots"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= VIEW 9: REFLEKSI ================= -->
+        <section id="view-refleksi" class="view-section hidden space-y-6">
+            <div>
+                <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Jurnal Pembelajaran</span>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-slate-100">Refleksi Peserta Didik</h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Tuliskan pemahaman serta pengamatanmu setelah mempelajari seluruh modul zat aditif.</p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-6 space-y-5 max-w-2xl mx-auto">
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-200">1. Apa hal terpenting yang baru kamu pahami tentang zat aditif?</label>
+                    <textarea id="refq1" rows="2" class="w-full p-3 text-xs rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Tuliskan jawabanmu di sini..."></textarea>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-200">2. Jenis zat aditif apa yang paling sering kamu konsumsi sehari-hari?</label>
+                    <textarea id="refq2" rows="2" class="w-full p-3 text-xs rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Tuliskan jawabanmu di sini..."></textarea>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-200">3. Komitmen apa yang akan kamu lakukan saat memilih makanan di kantin/minimarket?</label>
+                    <textarea id="refq3" rows="2" class="w-full p-3 text-xs rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Tuliskan jawabanmu di sini..."></textarea>
+                </div>
+
+                <button onclick="saveReflection()" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition shadow-md">
+                    <i class="fa-solid fa-floppy-disk mr-1"></i> Simpan Catatan Refleksi
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SETTINGS MODAL (GURU CONFIGURATION) -->
+    <div id="settingsModal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 w-full max-w-lg shadow-2xl space-y-4">
+            <div class="flex items-center justify-between border-b pb-3 dark:border-slate-700">
+                <h3 class="font-bold text-slate-800 dark:text-slate-100 text-base flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-emerald-500"></i> Pengaturan Guru / Media
+                </h3>
+                <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-slate-600 text-lg">&times;</button>
+            </div>
+
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Nama Guru Pengampu</label>
+                    <input type="text" id="cfgTeacherName" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-xs">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">URL Google Apps Script Web App</label>
+                    <input type="url" id="cfgGasUrl" placeholder="https://script.google.com/macros/s/.../exec" class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-xs font-mono">
+                    <p class="text-[10px] text-slate-400 mt-0.5">Biarkan kosong atau isi URL Web App Google Sheets milik Anda.</p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">URL Modul Belajar Google Docs</label>
+                    <input type="url" id="cfgDocsMaterialUrl" placeholder="https://docs.google.com/document/d/..." class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-xs font-mono">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">URL LKPD Google Docs</label>
+                    <input type="url" id="cfgDocsLkpdUrl" placeholder="https://docs.google.com/document/d/..." class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 text-xs font-mono">
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t dark:border-slate-700">
+                <button onclick="resetAppProgress()" class="text-xs text-rose-500 hover:underline font-bold">
+                    <i class="fa-solid fa-rotate-left"></i> Reset Progress Siswa
+                </button>
+                <div class="flex gap-2">
+                    <button onclick="closeSettingsModal()" class="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-xs font-bold rounded-xl">Batal</button>
+                    <button onclick="saveSettingsConfig()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md">Simpan Konfigurasi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE BOTTOM NAVIGATION BAR -->
+    <nav class="sm:hidden sticky bottom-0 z-40 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-700 px-2 py-2">
+        <div class="grid grid-cols-5 gap-1 text-center">
+            <button onclick="navigateTo('beranda')" class="py-1 text-slate-600 dark:text-slate-300 flex flex-col items-center">
+                <i class="fa-solid fa-house text-base"></i>
+                <span class="text-[10px] mt-0.5 font-medium">Beranda</span>
+            </button>
+            <button onclick="navigateTo('materi')" class="py-1 text-slate-600 dark:text-slate-300 flex flex-col items-center">
+                <i class="fa-solid fa-book-open text-base"></i>
+                <span class="text-[10px] mt-0.5 font-medium">Materi</span>
+            </button>
+            <button onclick="navigateTo('permainan')" class="py-1 text-slate-600 dark:text-slate-300 flex flex-col items-center">
+                <i class="fa-solid fa-gamepad text-base"></i>
+                <span class="text-[10px] mt-0.5 font-medium">Game</span>
+            </button>
+            <button onclick="navigateTo('kuis')" class="py-1 text-slate-600 dark:text-slate-300 flex flex-col items-center">
+                <i class="fa-solid fa-pen-clip text-base"></i>
+                <span class="text-[10px] mt-0.5 font-medium">Kuis</span>
+            </button>
+            <button onclick="navigateTo('evaluasi')" class="py-1 text-slate-600 dark:text-slate-300 flex flex-col items-center">
+                <i class="fa-solid fa-award text-base"></i>
+                <span class="text-[10px] mt-0.5 font-medium">Evaluasi</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- FOOTER -->
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-4 text-center text-xs text-slate-500">
+        <p>© 2026 Media Pembelajaran IPA Kelas 8 • Kurikulum Merdeka • Diproduksi untuk Pembelajaran Digital</p>
+    </footer>
+
+    <!-- APPLICATION JAVASCRIPT CODE -->
+    <script>
+        // Configuration state
+        const DEFAULT_CONFIG = {
+            teacherName: "Ibu Rahmawati, S.Pd.",
+            gasUrl: "GOOGLE_APPS_SCRIPT_URL",
+            docsMaterialUrl: "GOOGLE_DOCS_URL",
+            docsLkpdUrl: "GOOGLE_LKPD_URL",
+        };
+
+        let appState = {
+            teacherName: localStorage.getItem('teacherName') || DEFAULT_CONFIG.teacherName,
+            gasUrl: localStorage.getItem('gasUrl') || DEFAULT_CONFIG.gasUrl,
+            docsMaterialUrl: localStorage.getItem('docsMaterialUrl') || DEFAULT_CONFIG.docsMaterialUrl,
+            docsLkpdUrl: localStorage.getItem('docsLkpdUrl') || DEFAULT_CONFIG.docsLkpdUrl,
+            soundEnabled: localStorage.getItem('soundEnabled') !== 'false',
+            understoodMaterials: JSON.parse(localStorage.getItem('understoodMaterials') || '[]'),
+            currentMaterialTab: 'pengertian',
+            gameScore: parseInt(localStorage.getItem('gameScore') || '0'),
+            quizIndex: 0,
+            quizAnswers: {},
+            evalIndex: 0,
+            evalAnswers: {},
+            examActive: false,
+            examTimeSeconds: 1200, // 20 minutes
+            examTimerInterval: null,
+            studentInfo: JSON.parse(localStorage.getItem('studentInfo') || '{"name":"","class":"8-A","absen":""}'),
+            lastExamResult: JSON.parse(localStorage.getItem('lastExamResult') || 'null')
+        };
+
+        // Material Data Content
+        const MATERIAL_DATA = {
+            pengertian: {
+                title: "Pengertian & Purpose Zat Aditif",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
+                            <h4 class="font-bold text-emerald-900 dark:text-emerald-200 text-sm mb-1">Pengertian Sederhana</h4>
+                            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                                **Zat aditif** adalah bahan tambahan yang sengaja dimasukkan ke dalam makanan atau minuman saat proses pembuatan, pengolahan, penyiapan, perlakuan, pengepakan, atau penyimpanan.
+                            </p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
+                            <h4 class="font-bold text-blue-900 dark:text-blue-200 text-sm mb-1">Pengertian Ilmiah (Regulasi Pangan)</h4>
+                            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
+                                Secara farmakologis dan kimia bahan pangan, zat aditif pangan (BTP) adalah senyawa non-nutrisi yang ditambahkan dengan konsentrasi terukur untuk mempertahankan mutu organoleptik, tekstur, cita rasa, daya simpan, serta estetika visual produk pangan.
+                            </p>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">Tujuan Penggunaan Zat Aditif:</h4>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-300">
+                            <li class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-2.5 rounded-lg">✨ Meningkatkan daya tarik visual & aroma</li>
+                            <li class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-2.5 rounded-lg">⏳ Memperpanjang masa simpan (keawetan)</li>
+                            <li class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-2.5 rounded-lg">😋 Memperbaiki rasa dan kerenyahan</li>
+                            <li class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-2.5 rounded-lg">🛡️ Mencegah kerusakan mikroorganisme</li>
+                        </ul>
+                    </div>
+                `
+            },
+            pewarna: {
+                title: "Jenis Zat Aditif: Pewarna (Colorants)",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Pewarna digunakan untuk memberi warna menarik pada makanan agar menggugah selera atau mengembalikan warna asli yang pudar selama proses pemasakan.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 space-y-2">
+                                <h5 class="font-bold text-amber-900 dark:text-amber-200 text-xs">🌿 Pewarna Alami</h5>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">Diambil dari ekstrak tumbuhan, buah, atau mineral alami.</p>
+                                <ul class="text-xs list-disc pl-4 text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li><b>Kunyit:</b> Memberikan warna kuning (Kurkumin)</li>
+                                    <li><b>Daun Suji / Pandan:</b> Warna hijau (Klorofil)</li>
+                                    <li><b>Buah Bit / Naga:</b> Warna merah kejambuan (Betalain)</li>
+                                    <li><b>Wortel:</b> Warna oranye (Beta-karoten)</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800 space-y-2">
+                                <h5 class="font-bold text-purple-900 dark:text-purple-200 text-xs">🧪 Pewarna Sintetis (Buatan)</h5>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">Dibuat dari reaksi sintetis kimia yang aman dan teregulasi BPOM.</p>
+                                <ul class="text-xs list-disc pl-4 text-slate-700 dark:text-slate-300 space-y-1">
+                                    <li><b>Tartrazin (CI 19140):</b> Warna kuning cerah</li>
+                                    <li><b>Kuning FCF (Sunset Yellow):</b> Warna oranye kuning</li>
+                                    <li><b>Indigotin / Brilliant Blue:</b> Warna biru</li>
+                                    <li><b>Eritrosin / Allura Red:</b> Warna merah cerah</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            pemanis: {
+                title: "Jenis Zat Aditif: Pemanis (Sweeteners)",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Pemanis berfungsi memberikan rasa manis pada makanan dan minuman.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
+                                <h5 class="font-bold text-amber-900 dark:text-amber-200 text-xs mb-2">🍯 Pemanis Alami</h5>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">Memiliki kalori tinggi dan rasa manis alami.</p>
+                                <p class="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-200">Contoh: Gula tebu (sukrosa), gula merah/kelapa, madu, dan kayu manis.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-pink-50 dark:bg-pink-950/40 border border-pink-200 dark:border-pink-800">
+                                <h5 class="font-bold text-pink-900 dark:text-pink-200 text-xs mb-2">💊 Pemanis Buatan (Rendah Kalori)</h5>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">Dibuat secara sintetis, tingkat kemanisan ratusan kali dari gula biasa.</p>
+                                <p class="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-200">Contoh: Aspartam, Sakarin, Siklamat, dan Sukralosa (Cocok untuk penderita diabetes sesuai dosis ADI).</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            pengawet: {
+                title: "Jenis Zat Aditif: Pengawet (Preservatives)",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Pengawet berfungsi mencegah pembusukan dan kerusakan pangan yang disebabkan oleh aktivitas bakteri, jamur, atau reaksi oksidasi.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800">
+                                <h5 class="font-bold text-cyan-900 dark:text-cyan-200 text-xs mb-2">🧂 Pengawetan Alami</h5>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">Prinsip osmosis (menarik air keluar dari sel mikroba).</p>
+                                <p class="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-200">Contoh: Garam dapur (pengasinan ikan), Gula konsentrasi tinggi (manisan/selai), Asam jawa, dan Pengasapan.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800">
+                                <h5 class="font-bold text-blue-900 dark:text-blue-200 text-xs mb-2">🔬 Pengawet Sintetis Izinkan BPOM</h5>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">Senyawa kimia spesifik penginhibisi mikroba.</p>
+                                <p class="text-xs font-semibold mt-2 text-slate-700 dark:text-slate-200">Contoh: Asam Benzoat/Natrium Benzoat (pada kecap & sirup), Natrium Nitrit (pada sosis/daging olahan), dan Kalsium Propionat (pada roti).</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            penyedap: {
+                title: "Jenis Zat Aditif: Penyedap Rasa & Aroma",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Penyedap berfungsi mempertegas rasa gurih (umami) dan memberikan aroma khas yang menggugah selera.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800">
+                                <h5 class="font-bold text-emerald-900 dark:text-emerald-200 text-xs mb-2">🧄 Penyedap Alami</h5>
+                                <p class="text-xs font-semibold text-slate-700 dark:text-slate-200">Bawang putih, bawang merah, merica, pala, ketumbar, serta ekstrak kaldu tulang/daging sapi & ayam.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800">
+                                <h5 class="font-bold text-amber-900 dark:text-amber-200 text-xs mb-2">🧪 Penyedap Sintetis</h5>
+                                <p class="text-xs font-semibold text-slate-700 dark:text-slate-200">Monosodium Glutamat (MSG/Vetsin), Disodium Inosinat, serta pemberi aroma sintetis (Ester seperti Amil Asetat rasa pisang).</p>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            contoh: {
+                title: "Aplikasi & Penggunaan Dalam Kehidupan Sehari-hari",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 space-y-2">
+                            <h5 class="font-bold text-xs text-slate-800 dark:text-slate-100">📌 Sikap Bijak Konsumsi Pangan (Dosis ADI)</h5>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                                Penggunaan zat aditif sintetis aman apabila memenuhi baku mutu standar yang ditetapkan BPOM dan tidak melebihi **Acceptable Daily Intake (ADI)**. Selalu baca komposisi di kemasan pangan sebelum membeli!
+                            </p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        const ACTIVITY_ITEMS = [
+            {
+                id: 1,
+                name: "Sirup Rasa Melon",
+                image: "🍾",
+                composition: "Air, Gula, Perisa Sintetis Melon, Tartrazin CI 19140, Natrium Benzoat.",
+                options: ["Pewarna", "Pemanis", "Pengawet", "Penyedap"],
+                correct: ["Pewarna", "Pemanis", "Pengawet"],
+                explanation: "Tartrazin = Pewarna; Gula = Pemanis Alami; Natrium Benzoat = Pengawet."
+            },
+            {
+                id: 2,
+                name: "Keripik Singkong Balado",
+                image: "🍟",
+                composition: "Singkong, Minyak Sawit, Garam, Bawang Putih, Monosodium Glutamat (MSG), Cabai.",
+                options: ["Pewarna", "Pemanis", "Pengawet", "Penyedap"],
+                correct: ["Pengawet", "Penyedap"],
+                explanation: "MSG & Bawang Putih = Penyedap; Garam = Pengawet Alami."
+            },
+            {
+                id: 3,
+                name: "Sosis Sapi Olahan",
+                image: "🌭",
+                composition: "Daging Sapi, Tepung Tapioka, Natrium Nitrit, Kaldu Daging, Erythrosine.",
+                options: ["Pewarna", "Pemanis", "Pengawet", "Penyedap"],
+                correct: ["Pewarna", "Pengawet", "Penyedap"],
+                explanation: "Natrium Nitrit = Pengawet Sintetis; Erythrosine = Pewarna; Kaldu = Penyedap Alami."
+            }
+        ];
+
+        const GAME_CASES = [
+            {
+                id: 1,
+                food: "Sirup Rasa Melon",
+                question: "Detektif menemukan bahan bernama 'Tartrazin' pada botol sirup melon. Jenis zat aditif apakah Tartrazin?",
+                options: ["Pewarna Sintetis", "Pengawet Sintetis", "Pemanis Buatan", "Penyedap Rasa"],
+                correctIndex: 0,
+                hint: "Fungsinya membuat sirup berwarna hijau/kuning cerah!"
+            },
+            {
+                id: 2,
+                food: "Roti Tawar Kemasan",
+                question: "Roti tawar dapat bertahan hingga 7 hari tanpa berjamur karena ditambahkan Kalsium Propionat. Bahan ini termasuk?",
+                options: ["Pewarna", "Pengawet", "Pemanis", "Penyedap"],
+                correctIndex: 1,
+                hint: "Menghambat pertumbuhan jamur pada tepung."
+            },
+            {
+                id: 3,
+                food: "Permen Bebas Gula",
+                question: "Permen ini terasa manis tetapi mengandung Aspartam. Termasuk jenis apakah Aspartam?",
+                options: ["Pemanis Buatan", "Pemanis Alami", "Pengawet Alami", "Penyedap Sintetis"],
+                correctIndex: 0,
+                hint: "Tingkat kemanisannya 200 kali dari gula biasa."
+            }
+        ];
+
+        const QUIZ_QUESTIONS = [
+            {
+                q: "Apa yang dimaksud dengan zat aditif pangan?",
+                options: [
+                    "Bahan kimia beracun yang dilarang di dalam makanan",
+                    "Bahan yang sengaja ditambahkan ke dalam makanan untuk tujuan tertentu",
+                    "Zat gizi utama seperti karbohidrat dan protein",
+                    "Bahan pembersih peralatan masak"
+                ],
+                answer: 1,
+                exp: "Zat aditif adalah bahan yang ditambahkan ke dalam makanan/minuman saat pengolahan untuk memperbaiki mutu, rasa, warna, atau keawetan."
+            },
+            {
+                q: "Pewarna alami berikut yang menghasilkan warna kuning pada bahan makanan adalah...",
+                options: ["Daun suji", "Kunyit", "Buah bit", "Buah naga"],
+                answer: 1,
+                exp: "Kunyit mengandung zat kurkumin yang memberikan warna kuning alami."
+            },
+            {
+                q: "Pewarna hijau alami yang dapat diperoleh dari tumbuhan berasal dari zat...",
+                options: ["Karoten", "Klorofil", "Kurkumin", "Betalain"],
+                answer: 1,
+                exp: "Klorofil merupakan pigmen hijau alami pada daun suji atau daun pandan."
+            },
+            {
+                q: "Zat pemanis alami yang sering ditemui dalam kehidupan sehari-hari adalah...",
+                options: ["Aspartam", "Sakarin", "Gula tebu", "Sukralosa"],
+                answer: 2,
+                exp: "Gula tebu (sukrosa) dan madu merupakan contoh pemanis alami."
+            },
+            {
+                q: "Pemanis buatan yang memiliki tingkat kemanisan sangat tinggi namun rendah kalori adalah...",
+                options: ["Gula merah", "Aspartam", "Madu", "Gula aren"],
+                answer: 1,
+                exp: "Aspartam adalah pemanis buatan yang aman jika dikonsumsi sesuai batas ADI."
+            },
+            {
+                q: "Pengawetan ikan asin dilakukan dengan memanfaatkan zat aditif alami berupa...",
+                options: ["Natrium benzoat", "Garam dapur", "Asam propionat", "Kalsium nitrit"],
+                answer: 1,
+                exp: "Garam dapur menarik air keluar dari sel mikroorganisme secara osmosis sehingga mengawetkan ikan."
+            },
+            {
+                q: "Zat pengawet sintetis yang sering ditambahkan pada makanan olahan daging seperti sosis adalah...",
+                options: ["Natrium nitrit", "Tartrazin", "Monosodium Glutamat", "Asam sitrat"],
+                answer: 0,
+                exp: "Natrium nitrit berfungsi mengawetkan daging olahan serta mempertahankan warna merah daging."
+            },
+            {
+                q: "Bahan penyedap rasa alami yang memberikan rasa gurih umami adalah...",
+                options: ["Tartrazin", "Bawang putih & kaldu alami", "Sakarin", "Natrium benzoat"],
+                answer: 1,
+                exp: "Bawang putih, bawang merah, dan ekstrak kaldu kaya akan glutamat alami."
+            },
+            {
+                q: "Monosodium Glutamat (MSG) digunakan dalam pengolahan makanan berfungsi sebagai...",
+                options: ["Pewarna buatan", "Penyedap rasa sintetis", "Pengawet alami", "Pemanis rendah kalori"],
+                answer: 1,
+                exp: "MSG memberikan rasa gurih (umami) pada masakan."
+            },
+            {
+                q: "Salah satu kelebihan pewarna sintetis dibandingkan pewarna alami adalah...",
+                options: ["Aman dikonsumsi berlebihan", "Warna lebih stabil dan pilihan warna beragam", "Mengandung banyak vitamin", "Mudah terurai oleh panas"],
+                answer: 1,
+                exp: "Pewarna sintetis lebih pekat, stabil saat dipanaskan, dan pilihan warnanya lengkap."
+            },
+            {
+                q: "Pengawet sintetis yang diizinkan BPOM untuk produk kecap dan minuman kemasan adalah...",
+                options: ["Natrium Benzoat", "Formalin", "Boraks", "Metanil Yellow"],
+                answer: 0,
+                exp: "Natrium benzoat adalah pengawet pangan yang legal dan aman sesuai batas regulasi BPOM."
+            },
+            {
+                q: "Mengapa kita perlu membaca komposisi zat aditif pada kemasan pangan sebelum membeli?",
+                options: ["Agar tahu produsen pabriknya", "Untuk memastikan batas konsumsi aman dan menghindari bahan yang tidak cocok", "Agar harga makanan lebih murah", "Untuk menghitung jumlah kalori saja"],
+                answer: 1,
+                exp: "Membaca label membantu kita memilih produk pangan secara bijak sesuai kebutuhan tubuh."
+            },
+            {
+                q: "Istilah ADI (Acceptable Daily Intake) pada zat aditif pangan berarti...",
+                options: ["Harga maksimal penjualan produk", "Batas harian aman konsumsi zat aditif per kg berat badan", "Tanggal kedaluwarsa produk", "Kadar air minimum dalam makanan"],
+                answer: 1,
+                exp: "ADI adalah estimasi jumlah zat aditif yang dapat dikonsumsi setiap hari seumur hidup tanpa risiko kesehatan."
+            },
+            {
+                q: "Pewarna sintetis Tartrazin menghasilkan warna...",
+                options: ["Merah", "Kuning", "Biru", "Hijau"],
+                answer: 1,
+                exp: "Tartrazin (CI 19140) memberi warna kuning pada makanan/minuman."
+            },
+            {
+                q: "Zat aditif pemberi aroma rasa pisang pada olahan kue adalah contoh dari...",
+                options: ["Pemberi aroma (Ester sintetis)", "Pemanis buatan", "Pengawet alami", "Pewarna alami"],
+                answer: 0,
+                exp: "Senyawa ester sintetis seperti amil asetat memberikan aroma khas buah pisang."
+            }
+        ];
+
+        const EVAL_QUESTIONS = [
+            ...QUIZ_QUESTIONS,
+            {
+                q: "Manakah pasangan pewarna alami dan sumber yang BENAR?",
+                options: ["Klorofil - Kunyit", "Betalain - Buah Bit", "Kurkumin - Daun Suji", "Beta Karoten - Kayu Manis"],
+                answer: 1,
+                exp: "Betalain berasal dari ekstrak buah bit."
+            },
+            {
+                q: "Kandungan sukralosa pada minuman kemasan berfungsi sebagai...",
+                options: ["Pemanis buatan", "Pewarna buatan", "Pengawet sintetis", "Pengatur keasaman"],
+                answer: 0,
+                exp: "Sukralosa adalah pemanis buatan yang tidak berpengaruh pada kadar gula darah."
+            },
+            {
+                q: "Asam benzoat paling efektif digunakan untuk mengawetkan makanan ber-pH...",
+                options: ["Asam", "Basa kuat", "Netral total", "Sangat pahit"],
+                answer: 0,
+                exp: "Asam benzoat bekerja optimal pada makanan dengan suasana asam (pH rendah)."
+            },
+            {
+                q: "Penyedap rasa disodium inosinat sering digabungkan dengan MSG untuk memberikan efek...",
+                options: ["Sinergi gurih berlipat ganda", "Rasa manis alami", "Warna menjadi merah", "Masa simpan bertambah 1 tahun"],
+                answer: 0,
+                exp: "Penggabungan disodium inosinat dengan MSG menciptakan sinergi rasa gurih yang kuat."
+            },
+            {
+                q: "Langkah terbaik dalam memilih produk pangan kemasan untuk kesehatan adalah...",
+                options: ["Memilih kemasan berharga mahal", "Mengecek izin edar BPOM dan daftar komposisi zat aditif", "Membeli yang warnanya paling mencolok", "Mengabaikan informasi tanggal kedaluwarsa"],
+                answer: 1,
+                exp: "Mengecek izin BPOM dan label komposisi menjamin keamanan pangan kita."
+            }
+        ];
+
+        // Web Audio API Sound Effects Synthesizer
+        function playAudioEffect(type) {
+            if (!appState.soundEnabled) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+
+                if (type === 'click') {
+                    osc.frequency.setValueAtTime(400, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.05);
+                } else if (type === 'correct') {
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08); // E5
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.25);
+                } else if (type === 'wrong') {
+                    osc.frequency.setValueAtTime(200, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.2);
+                } else if (type === 'victory') {
+                    osc.frequency.setValueAtTime(440, ctx.currentTime);
+                    osc.frequency.setValueAtTime(554.37, ctx.currentTime + 0.1);
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.2);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.5);
+                }
+            } catch (e) {
+                console.log("Audio not supported or blocked");
+            }
+        }
+
+        function navigateTo(viewId) {
+            playAudioEffect('click');
+            const views = document.querySelectorAll('.view-section');
+            views.forEach(v => v.classList.add('hidden'));
+
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) {
+                target.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Trigger specific view renders
+            if (viewId === 'materi') renderMaterialView();
+            if (viewId === 'aktivitas') renderActivityView();
+            if (viewId === 'permainan') renderGameBoard();
+            if (viewId === 'kuis') renderQuizQuestion();
+            if (viewId === 'hasil') renderHasilDashboard();
+
+            updateGlobalProgress();
+        }
+
+        function toggleSound() {
+            appState.soundEnabled = !appState.soundEnabled;
+            localStorage.setItem('soundEnabled', appState.soundEnabled);
+            const icon = document.getElementById('soundIcon');
+            if (appState.soundEnabled) {
+                icon.className = "fa-solid fa-volume-high text-base";
+                playAudioEffect('click');
+            } else {
+                icon.className = "fa-solid fa-volume-xmark text-base opacity-50";
+            }
+        }
+
+        function toggleDarkMode() {
+            playAudioEffect('click');
+            document.documentElement.classList.toggle('dark');
+        }
+
+        function switchMaterialTab(tabKey) {
+            playAudioEffect('click');
+            appState.currentMaterialTab = tabKey;
+            
+            // Tab Buttons UI
+            const tabs = ['pengertian', 'pewarna', 'pemanis', 'pengawet', 'penyedap', 'contoh'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`mtab-${t}`);
+                if (btn) {
+                    if (t === tabKey) {
+                        btn.className = "px-4 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-lg transition tab-active";
+                    } else {
+                        btn.className = "px-4 py-2 text-xs sm:text-sm font-semibold whitespace-nowrap rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition text-slate-500";
+                    }
+                }
+            });
+
+            renderMaterialView();
+        }
+
+        function renderMaterialView() {
+            const data = MATERIAL_DATA[appState.currentMaterialTab];
+            const area = document.getElementById('materialContentArea');
+            if (data && area) {
+                area.innerHTML = `
+                    <h3 class="text-xl font-extrabold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+                        <span>${data.title}</span>
+                    </h3>
+                    ${data.content}
+                `;
+            }
+
+            // Update understood counter badge
+            const count = appState.understoodMaterials.length;
+            document.getElementById('readCount').innerText = count;
+        }
+
+        function markMaterialUnderstood() {
+            const current = appState.currentMaterialTab;
+            if (!appState.understoodMaterials.includes(current)) {
+                appState.understoodMaterials.push(current);
+                localStorage.setItem('understoodMaterials', JSON.stringify(appState.understoodMaterials));
+                playAudioEffect('correct');
+            }
+            renderMaterialView();
+            updateGlobalProgress();
+        }
+
+        function renderActivityView() {
+            const container = document.getElementById('activityContainer');
+            if (!container) return;
+
+            container.innerHTML = ACTIVITY_ITEMS.map(item => `
+                <div class="glass-card rounded-2xl p-5 space-y-3">
+                    <div class="flex items-center gap-3">
+                        <div class="text-3xl p-2 bg-amber-100 dark:bg-amber-950 rounded-xl">${item.image}</div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm">${item.name}</h4>
+                            <p class="text-[11px] text-slate-500">Komposisi: ${item.composition}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label class="block text-xs font-semibold text-slate-600 dark:text-slate-300">Pilih Jenis Zat Aditif Terkandung:</label>
+                        <div class="flex flex-wrap gap-2">
+                            ${item.options.map(opt => `
+                                <button onclick="checkActivityOption(${item.id}, '${opt}', this)" class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 text-xs font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-950 transition">
+                                    ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div id="act-feedback-${item.id}" class="hidden text-xs p-2.5 rounded-xl font-medium"></div>
+                </div>
+            `).join('');
+        }
+
+        function checkActivityOption(itemId, selectedOpt, btnEl) {
+            const item = ACTIVITY_ITEMS.find(x => x.id === itemId);
+            const feedbackEl = document.getElementById(`act-feedback-${itemId}`);
+            feedbackEl.classList.remove('hidden');
+
+            if (item.correct.includes(selectedOpt)) {
+                playAudioEffect('correct');
+                btnEl.className = "px-3 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-semibold";
+                feedbackEl.className = "text-xs p-2.5 rounded-xl font-medium bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-200 border border-emerald-300";
+                feedbackEl.innerHTML = `<b>Tepat Sekali!</b> ${item.explanation}`;
+            } else {
+                playAudioEffect('wrong');
+                btnEl.className = "px-3 py-1.5 rounded-lg bg-rose-500 text-white text-xs font-semibold";
+                feedbackEl.className = "text-xs p-2.5 rounded-xl font-medium bg-rose-50 dark:bg-rose-950/60 text-rose-800 dark:text-rose-200 border border-rose-300";
+                feedbackEl.innerHTML = `<b>Belum Tepat!</b> Opsi ${selectedOpt} kurang pas untuk produk ini. Perhatikan kembali komposisinya.`;
+            }
+        }
+
+        function renderGameBoard() {
+            const board = document.getElementById('gameBoard');
+            const scoreDisplay = document.getElementById('gameScoreDisplay');
+            if (scoreDisplay) scoreDisplay.innerText = appState.gameScore;
+
+            if (!board) return;
+
+            const currentCase = GAME_CASES[0]; // Simple scenario example
+
+            board.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800">
+                        <span class="text-2xl">🔎</span>
+                        <div>
+                            <h4 class="font-bold text-xs text-purple-900 dark:text-purple-200 uppercase tracking-wider">Kasus Detektif #1: ${currentCase.food}</h4>
+                            <p class="text-xs text-slate-700 dark:text-slate-300 font-medium">${currentCase.question}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        ${currentCase.options.map((opt, idx) => `
+                            <button onclick="submitGameAnswer(${idx})" class="p-3 text-left rounded-xl border border-slate-300 dark:border-slate-600 hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-950/40 text-xs font-semibold transition">
+                                ${String.fromCharCode(65 + idx)}. ${opt}
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <div id="gameHintBox" class="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 text-amber-800 dark:text-amber-200 rounded-xl text-xs">
+                        💡 <b>Petunjuk Detektif:</b> ${currentCase.hint}
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitGameAnswer(selectedIdx) {
+            const currentCase = GAME_CASES[0];
+            if (selectedIdx === currentCase.correctIndex) {
+                playAudioEffect('victory');
+                appState.gameScore += 100;
+                localStorage.setItem('gameScore', appState.gameScore);
+                alert("🎉 Hebat! Penyelidikanmu berhasil. Kamu mendapatkan 100 Poin Detektif!");
+            } else {
+                playAudioEffect('wrong');
+                alert("❌ Penyelidikan kurang tepat. Coba periksa petunjuknya lagi!");
+            }
+            renderGameBoard();
+        }
+
+        function renderQuizQuestion() {
+            const q = QUIZ_QUESTIONS[appState.quizIndex];
+            const box = document.getElementById('quizQuestionBox');
+            const totalEl = document.getElementById('quizTotalIndex');
+            const currentEl = document.getElementById('quizCurrentIndex');
+            const prevBtn = document.getElementById('quizPrevBtn');
+
+            if (totalEl) totalEl.innerText = QUIZ_QUESTIONS.length;
+            if (currentEl) currentEl.innerText = appState.quizIndex + 1;
+            if (prevBtn) prevBtn.disabled = (appState.quizIndex === 0);
+
+            if (!box) return;
+
+            const savedAnswer = appState.quizAnswers[appState.quizIndex];
+
+            box.innerHTML = `
+                <h3 class="font-bold text-slate-800 dark:text-slate-100 text-sm leading-relaxed">
+                    ${appState.quizIndex + 1}. ${q.q}
+                </h3>
+                <div class="space-y-2 pt-2">
+                    ${q.options.map((opt, idx) => {
+                        let btnStyle = "border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800";
+                        if (savedAnswer !== undefined) {
+                            if (idx === q.answer) btnStyle = "bg-emerald-500 text-white font-bold border-emerald-500";
+                            else if (idx === savedAnswer) btnStyle = "bg-rose-500 text-white font-bold border-rose-500";
+                        }
+                        return `
+                            <button onclick="selectQuizAnswer(${idx})" ${savedAnswer !== undefined ? 'disabled' : ''} class="w-full text-left p-3 rounded-xl border text-xs transition flex items-center justify-between ${btnStyle}">
+                                <span><b>${String.fromCharCode(65 + idx)}.</b> ${opt}</span>
+                            </button>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+
+            // Explanation box
+            const expBox = document.getElementById('quizExplanationBox');
+            const expText = document.getElementById('quizExplanationText');
+            const expBadge = document.getElementById('quizBadgeResult');
+
+            if (savedAnswer !== undefined) {
+                expBox.classList.remove('hidden');
+                expText.innerText = q.exp;
+                if (savedAnswer === q.answer) {
+                    expBadge.className = "px-2 py-0.5 rounded font-bold text-white bg-emerald-600";
+                    expBadge.innerText = "BENAR";
+                } else {
+                    expBadge.className = "px-2 py-0.5 rounded font-bold text-white bg-rose-600";
+                    expBadge.innerText = "SALAH";
+                }
+            } else {
+                expBox.classList.add('hidden');
+            }
+        }
+
+        function selectQuizAnswer(idx) {
+            const q = QUIZ_QUESTIONS[appState.quizIndex];
+            appState.quizAnswers[appState.quizIndex] = idx;
+            
+            if (idx === q.answer) {
+                playAudioEffect('correct');
+            } else {
+                playAudioEffect('wrong');
+            }
+
+            renderQuizQuestion();
+            updateGlobalProgress();
+        }
+
+        function navigateQuiz(dir) {
+            playAudioEffect('click');
+            const newIndex = appState.quizIndex + dir;
+            if (newIndex >= 0 && newIndex < QUIZ_QUESTIONS.length) {
+                appState.quizIndex = newIndex;
+                renderQuizQuestion();
+            }
+        }
+
+        function startExam() {
+            const name = document.getElementById('studentName').value.trim();
+            const cls = document.getElementById('studentClass').value;
+            const absen = document.getElementById('studentAbsen').value.trim();
+
+            if (!name || !absen) {
+                alert("Siswa Yth., Mohon lengkapi Nama Lengkap dan Nomor Absen sebelum memulai ujian!");
+                return;
+            }
+
+            appState.studentInfo = { name, class: cls, absen };
+            localStorage.setItem('studentInfo', JSON.stringify(appState.studentInfo));
+
+            document.getElementById('evalIdentityBox').classList.add('hidden');
+            document.getElementById('evalExamScreen').classList.remove('hidden');
+
+            document.getElementById('evalStudentInfoBadge').innerText = `${name} (${cls} / Absen: ${absen})`;
+
+            appState.examActive = true;
+            appState.evalIndex = 0;
+            appState.evalAnswers = {};
+            appState.examTimeSeconds = 1200; // 20 mins
+
+            startExamTimer();
+            renderEvalQuestion();
+        }
+
+        function startExamTimer() {
+            if (appState.examTimerInterval) clearInterval(appState.examTimerInterval);
+            appState.examTimerInterval = setInterval(() => {
+                appState.examTimeSeconds--;
+                const min = Math.floor(appState.examTimeSeconds / 60);
+                const sec = appState.examTimeSeconds % 60;
+                document.getElementById('examTimerDisplay').innerText = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+
+                if (appState.examTimeSeconds <= 0) {
+                    clearInterval(appState.examTimerInterval);
+                    alert("Waktu pengerjaan Evaluasi telah habis!");
+                    finishExam();
+                }
+            }, 1000);
+        }
+
+        function renderEvalQuestion() {
+            const q = EVAL_QUESTIONS[appState.evalIndex];
+            const container = document.getElementById('evalQuestionContainer');
+            document.getElementById('evalCurrentIndex').innerText = appState.evalIndex + 1;
+
+            if (!container) return;
+
+            const saved = appState.evalAnswers[appState.evalIndex];
+
+            container.innerHTML = `
+                <h4 class="font-bold text-slate-800 dark:text-slate-100 text-sm leading-relaxed">
+                    ${appState.evalIndex + 1}. ${q.q}
+                </h4>
+                <div class="space-y-2 pt-2">
+                    ${q.options.map((opt, idx) => `
+                        <button onclick="selectEvalAnswer(${idx})" class="w-full text-left p-3 rounded-xl border text-xs font-medium transition ${saved === idx ? 'bg-emerald-600 text-white border-emerald-600' : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'}">
+                            <b>${String.fromCharCode(65 + idx)}.</b> ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function selectEvalAnswer(idx) {
+            playAudioEffect('click');
+            appState.evalAnswers[appState.evalIndex] = idx;
+            renderEvalQuestion();
+        }
+
+        function navigateEval(dir) {
+            playAudioEffect('click');
+            const newIndex = appState.evalIndex + dir;
+            if (newIndex >= 0 && newIndex < EVAL_QUESTIONS.length) {
+                appState.evalIndex = newIndex;
+                renderEvalQuestion();
+            }
+        }
+
+        function finishExam() {
+            if (appState.examTimerInterval) clearInterval(appState.examTimerInterval);
+
+            // Calculate Score
+            let correct = 0;
+            EVAL_QUESTIONS.forEach((q, idx) => {
+                if (appState.evalAnswers[idx] === q.answer) correct++;
+            });
+
+            const total = EVAL_QUESTIONS.length;
+            const score = Math.round((correct / total) * 100);
+            const timeSpentMins = Math.ceil((1200 - appState.examTimeSeconds) / 60);
+
+            let category = "Perlu Belajar Lagi";
+            if (score >= 85) category = "Sangat Baik";
+            else if (score >= 70) category = "Baik";
+            else if (score >= 60) category = "Cukup";
+
+            const resultData = {
+                name: appState.studentInfo.name,
+                class: appState.studentInfo.class,
+                absen: appState.studentInfo.absen,
+                score: score,
+                correct: correct,
+                wrong: total - correct,
+                percentage: `${score}%`,
+                timeSpent: `${timeSpentMins} mnt`,
+                category: category,
+                timestamp: new Date().toLocaleString('id-ID')
+            };
+
+            appState.lastExamResult = resultData;
+            localStorage.setItem('lastExamResult', JSON.stringify(resultData));
+
+            // Send payload to Google Sheets via fetch
+            sendResultsToGoogleSheets(resultData);
+
+            navigateTo('hasil');
+        }
+
+        function sendResultsToGoogleSheets(data) {
+            const gasUrl = appState.gasUrl;
+            if (!gasUrl || gasUrl === "GOOGLE_APPS_SCRIPT_URL") {
+                console.log("Google Apps Script URL belum dikonfigurasi.");
+                return;
+            }
+
+            const payload = {
+                timestamp: data.timestamp,
+                nama: data.name,
+                kelas: data.class,
+                absen: data.absen,
+                nilai: data.score,
+                benar: data.correct,
+                salah: data.wrong,
+                persentase: data.percentage,
+                waktu: data.timeSpent,
+                kategori: data.category
+            };
+
+            fetch(gasUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                const statusBox = document.getElementById('sheetsStatusBox');
+                if (statusBox) statusBox.classList.remove('hidden');
+            })
+            .catch(err => console.error("Gagal mengirim data ke Sheets:", err));
+        }
+
+        function renderHasilDashboard() {
+            const res = appState.lastExamResult;
+            if (!res) return;
+
+            document.getElementById('hasilNamaSiswa').innerText = res.name;
+            document.getElementById('hasilKelasAbsen').innerText = `Kelas: ${res.class} | No. Absen: ${res.absen}`;
+            document.getElementById('hasilNilai').innerText = res.score;
+            document.getElementById('hasilBenarSalah').innerText = `${res.correct} / ${res.wrong}`;
+            document.getElementById('hasilWaktu').innerText = res.timeSpent;
+            document.getElementById('hasilKategori').innerText = res.category;
+        }
+
+        function saveReflection() {
+            playAudioEffect('victory');
+            const q1 = document.getElementById('refq1').value;
+            const q2 = document.getElementById('refq2').value;
+            const q3 = document.getElementById('refq3').value;
+
+            localStorage.setItem('userReflection', JSON.stringify({ q1, q2, q3, date: new Date().toLocaleDateString() }));
+            alert("✨ Terima kasih! Catatan refleksi pembelajaranmu telah berhasil disimpan!");
+        }
+
+        function updateGlobalProgress() {
+            const matProgress = (appState.understoodMaterials.length / 6) * 40; // 40%
+            const quizProgress = (Object.keys(appState.quizAnswers).length / 15) * 30; // 30%
+            const evalProgress = appState.lastExamResult ? 30 : 0; // 30%
+
+            const totalProgress = Math.min(100, Math.round(matProgress + quizProgress + evalProgress));
+
+            const bar = document.getElementById('globalProgressBar');
+            const text = document.getElementById('headerProgress');
+
+            if (bar) bar.style.width = `${totalProgress}%`;
+            if (text) text.innerText = `${totalProgress}%`;
+        }
+
+        function openDocs(type) {
+            playAudioEffect('click');
+            let url = appState.docsMaterialUrl;
+            if (type === 'lkpd') url = appState.docsLkpdUrl;
+
+            if (url && url !== "GOOGLE_DOCS_URL" && url !== "GOOGLE_LKPD_URL") {
+                window.open(url, '_blank');
+            } else {
+                alert("URL Google Docs belum dikonfigurasi oleh Guru pada tombol Pengaturan (⚙️).");
+            }
+        }
+
+        function openSettingsModal() {
+            playAudioEffect('click');
+            document.getElementById('cfgTeacherName').value = appState.teacherName;
+            document.getElementById('cfgGasUrl').value = appState.gasUrl;
+            document.getElementById('cfgDocsMaterialUrl').value = appState.docsMaterialUrl;
+            document.getElementById('cfgDocsLkpdUrl').value = appState.docsLkpdUrl;
+
+            document.getElementById('settingsModal').classList.remove('hidden');
+        }
+
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').classList.add('hidden');
+        }
+
+        function saveSettingsConfig() {
+            playAudioEffect('correct');
+            appState.teacherName = document.getElementById('cfgTeacherName').value.trim() || DEFAULT_CONFIG.teacherName;
+            appState.gasUrl = document.getElementById('cfgGasUrl').value.trim() || DEFAULT_CONFIG.gasUrl;
+            appState.docsMaterialUrl = document.getElementById('cfgDocsMaterialUrl').value.trim() || DEFAULT_CONFIG.docsMaterialUrl;
+            appState.docsLkpdUrl = document.getElementById('cfgDocsLkpdUrl').value.trim() || DEFAULT_CONFIG.docsLkpdUrl;
+
+            localStorage.setItem('teacherName', appState.teacherName);
+            localStorage.setItem('gasUrl', appState.gasUrl);
+            localStorage.setItem('docsMaterialUrl', appState.docsMaterialUrl);
+            localStorage.setItem('docsLkpdUrl', appState.docsLkpdUrl);
+
+            document.getElementById('displayTeacherName').innerText = appState.teacherName;
+            closeSettingsModal();
+            alert("Konfigurasi guru berhasil diperbarui!");
+        }
+
+        function resetAppProgress() {
+            if (confirm("Apakah Anda yakin ingin menghapus seluruh progres belajar dan nilai siswa dari perangkat ini?")) {
+                localStorage.clear();
+                location.reload();
+            }
+        }
+
+        window.onload = function() {
+            document.getElementById('displayTeacherName').innerText = appState.teacherName;
+            renderMaterialView();
+            updateGlobalProgress();
+        };
+    </script>
+</body>
+</html>
